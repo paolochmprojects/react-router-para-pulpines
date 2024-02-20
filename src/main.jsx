@@ -6,6 +6,7 @@ import Root, { loader as rootLoader, action as rootAction } from './routes/root'
 import ErrorPage from './error-page'
 import Contact, {loader as contactLoader} from './routes/contact'
 import { action as destroyAction } from "./routes/destroy"
+import { action as contactAction } from './routes/contact'
 import {action as updateAction } from './routes/edit'
 import EditContact from './routes/edit'
 import Index from './routes'
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
         path: "contacts/:contactId",
         element: <Contact />,
         loader: contactLoader,
+        action: contactAction,
       },
       {
         path: "contacts/:contactId/edit",

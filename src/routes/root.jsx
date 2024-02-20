@@ -17,7 +17,7 @@ export async function action() {
 export default function Root() {
 
     const { contacts, q } = useLoaderData()
-    const { state,location } = useNavigation()
+    const { state, location } = useNavigation()
     const submit = useSubmit()
 
     const searching = location && new URLSearchParams(location.search).has("q");
@@ -36,11 +36,16 @@ export default function Root() {
                             id="q"
                             aria-label="Search contacts"
                             placeholder="Search"
-                            className={searching ? "loading": ""}
+                            className={searching ? "loading" : ""}
                             type="search"
                             name="q"
                             defaultValue={q}
-                            onChange={e=>submit(e.currentTarget.form)}
+                            onChange={e => {
+                                const isFirstSearch = q === null
+                                submit(e.currentTarget.form, {
+                                    replace: !isFirstSearch
+                                })
+                            }}
                         />
                         <div
                             id="search-spinner"
