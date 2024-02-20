@@ -3,6 +3,12 @@ import { getContact, updateContact } from "../contacts";
 
 export async function loader({ params }) {
     const contact = await getContact(params.contactId);
+    if (!contact) {
+        throw new Response("", {
+          status: 404,
+          statusText: "Not Found",
+        });
+      }
     return { contact };
 }
 
@@ -86,7 +92,7 @@ export default function Contact() {
 function Favorite({ contact }) {
     // yes, this is a `let` for later
     let favorite = contact.favorite;
-    
+
     const fetcher = useFetcher();
 
     if (fetcher.formData) {
